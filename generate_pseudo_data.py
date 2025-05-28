@@ -843,37 +843,33 @@ def analysis_test_words_ikea(lang):
 
 
 if __name__ == "__main__":
-    langs = ["de", "fr"] 
-    data_types = ["multi30k", "ikea"]
-    for lang in langs:
-        if lang == 'fr' and data_type == 'multi30k': continue
-        for data_type in data_types:
-            # align
-            preprocess_fastalign_data(data_type, lang)# Combine src data and tar data together
-            command = "MMKG_MMT/utils/fast_align-master/build/fast_align -i MMKG_MMT/data/data_process/train.en.{} -d -o -v > MMKG_MMT/data/data_process/forward.align.{}.{}".format(lang, data_type, lang)
-            subprocess.run(command, shell=True)
-            
-            # compute simi
-            simi_spacy_mmkb_src_wiki(data_type, lang, 0.5)
-            
-            # other
-            analysis_test_words_multi30k(lang)
-            analysis_test_words_ikea(lang)
-            
-            # org img
-            dir_img_embed()
-            generate_img_embed(data_type, lang)
-
-    for lang in langs:
-        # aug sen
-        aug_sen_ikea("ikea", lang)# ikea
-        aug_sen_multi30k("multi30k", lang)  # multi30k
-        for data_type in data_types:
-            # aug img    
-            generate_pseudo_img_embed(data_type, lang)
-    
-    # if low-resource, multi30k
+    lang = "de" 
     data_type = "multi30k"
+    # align
+    preprocess_fastalign_data(data_type, lang)# Combine src data and tar data together
+    command = "MMKG_MMT/utils/fast_align-master/build/fast_align -i MMKG_MMT/data/data_process/train.en.{} -d -o -v > MMKG_MMT/data/data_process/forward.align.{}.{}".format(lang, data_type, lang)
+    subprocess.run(command, shell=True)
+    
+    # compute simi
+    simi_spacy_mmkb_src_wiki(data_type, lang, 0.5)
+    
+    # other
+    analysis_test_words_multi30k(lang)
+    analysis_test_words_ikea(lang)
+    
+    # org img
+    dir_img_embed()
+    generate_img_embed(data_type, lang)
+
+    # aug sen
+    if data_type == "ikea":
+        aug_sen_ikea("ikea", lang)# ikea
+    if data_type == "multi30k":
+        aug_sen_multi30k("multi30k", lang)  # multi30k
+    # aug img    
+    generate_pseudo_img_embed(data_type, lang)
+    
+    # if low-resource
     ratios = [0.1, 0.25, 0.5, 1]
     for ratio in ratios:
         gen_ratio_sen(data_type, lang, ratio=ratio)  
