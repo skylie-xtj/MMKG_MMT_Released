@@ -21,7 +21,7 @@ Subsequently, data enhancement can be achieved by utilizing the `generate_pseudo
 python generate_pseudo_data.py
 ```
 
-For reference purposes, the Multi30k and IKEA datasets enhanced through our methodology have been made available [here](https://pan.quark.cn/s/fa71d21b4bee) (password: yUxF).
+For reference purposes, the Multi30k and IKEA datasets enhanced through our methodology have been made available [here](https://pan.quark.cn/s/ef2fdf22af95) (password: yfg4).
 
 ## :book: Citation
 If you find our paper and code useful in your research, please consider giving a star :star: and citation :book:.
